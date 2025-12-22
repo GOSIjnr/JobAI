@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String   // In a real app, hashed
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  answers   Answer[]
+  results   Result[]
+}
+
+model JobRole {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  vectorId    String?  // ID in Qdrant
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Question {
+  id        String   @id @default(uuid())
+  text      String
+  category  String   // e.g., "personality", "aptitude"
+  createdAt DateTime @default(now())
+  answers   Answer[]
+}
+
+model Answer {
+  id         String   @id @default(uuid())
+  text       String
+  userId     String
+  questionId String
+  user       User     @relation(fields: [userId], references: [id])
+  question   Question @relation(fields: [questionId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+model Result {
+  id        String   @id @default(uuid())
+  userId    String
+  jobRoleId String
+  score     Float
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}
