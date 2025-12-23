@@ -1,70 +1,178 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Play, Zap, Target, Brain, TrendingUp } from 'lucide-react';
+import { useEffect, useState } from 'react';
+
+const stats = [
+    { value: 18, suffix: '', label: 'Questions • 4 min' },
+    { value: 50, suffix: '+', label: 'Career Paths Analyzed' },
+    { value: 2847, suffix: '', label: 'Matches Made This Month' },
+];
+
+function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        const duration = 2000;
+        const steps = 60;
+        const increment = value / steps;
+        let current = 0;
+
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= value) {
+                setCount(value);
+                clearInterval(timer);
+            } else {
+                setCount(Math.floor(current));
+            }
+        }, duration / steps);
+
+        return () => clearInterval(timer);
+    }, [value]);
+
+    return <span>{count}{suffix}</span>;
+}
 
 export const Hero = () => {
     return (
-        <section className="relative overflow-hidden bg-slate-900 pt-16 pb-32 lg:pt-32">
-            {/* Background Gradients */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-                <div className="absolute -top-[50%] -left-[20%] w-[80%] h-[80%] rounded-full bg-violet-600/20 blur-3xl opacity-50" />
-                <div className="absolute top-[20%] -right-[20%] w-[60%] h-[60%] rounded-full bg-blue-600/20 blur-3xl opacity-50" />
+        <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
+            {/* Background Effects */}
+            <div className="absolute inset-0 -z-10">
+                <div className="absolute inset-0 bg-mesh" />
+                <div className="absolute inset-0 bg-grid opacity-30" />
+
+                {/* Animated Gradient Orbs */}
+                <motion.div
+                    animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.3, 0.5, 0.3],
+                    }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-r from-[rgb(var(--accent))] to-cyan-400 rounded-full blur-[120px]"
+                />
+                <motion.div
+                    animate={{
+                        scale: [1.2, 1, 1.2],
+                        opacity: [0.2, 0.4, 0.2],
+                    }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                    className="absolute bottom-1/4 -right-32 w-[500px] h-[500px] bg-gradient-to-r from-blue-500 to-[rgb(var(--accent))] rounded-full blur-[150px]"
+                />
             </div>
 
-            <div className="container mx-auto px-6 relative z-10">
-                <div className="flex flex-col lg:flex-row items-center gap-12 text-center lg:text-left">
+            <div className="w-full max-w-[1200px] mx-auto px-6 py-20">
+                <div className="w-full max-w-4xl mx-auto text-center">
+                    {/* Badge */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <div className="inline-flex items-center gap-2 badge badge-accent mb-8">
+                            <Zap size={14} />
+                            <span>Free • No signup required</span>
+                        </div>
+                    </motion.div>
 
-                    <div className="lg:w-1/2">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                        >
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-blue-400 text-sm font-medium mb-6">
-                                <Sparkles size={14} />
-                                <span>AI-Powered Career Intelligence</span>
+                    {/* Headline */}
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="heading-display mb-6"
+                    >
+                        Stop guessing
+                        <span className="inline-flex w-[1.5ch]">
+                            <motion.span
+                                animate={{ opacity: [0, 1, 1, 0] }}
+                                transition={{ duration: 1.5, repeat: Infinity, times: [0, 0.2, 0.8, 1] }}
+                            >.</motion.span>
+                            <motion.span
+                                animate={{ opacity: [0, 1, 1, 0] }}
+                                transition={{ duration: 1.5, repeat: Infinity, times: [0, 0.2, 0.8, 1], delay: 0.2 }}
+                            >.</motion.span>
+                            <motion.span
+                                animate={{ opacity: [0, 1, 1, 0] }}
+                                transition={{ duration: 1.5, repeat: Infinity, times: [0, 0.2, 0.8, 1], delay: 0.4 }}
+                            >.</motion.span>
+                        </span>
+                        <br />
+                        <span className="text-gradient">Start knowing.</span>
+                    </motion.h1>
+
+                    {/* Subheadline */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="text-lg text-[rgb(var(--text-secondary))] max-w-2xl mx-auto mb-10"
+                    >
+                        Answer 18 focused questions about how you actually work—not who you wish you were.
+                        We'll match you with careers that fit your real strengths, not just your resume.
+                    </motion.p>
+
+                    {/* CTA Buttons */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+                    >
+                        <Link href="/questionnaire" className="btn btn-primary btn-lg group">
+                            Start Free Assessment
+                            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                        <button className="btn btn-secondary btn-lg group">
+                            <div className="w-8 h-8 rounded-full bg-[rgb(var(--accent))] flex items-center justify-center mr-1">
+                                <Play size={14} className="text-white ml-0.5" />
                             </div>
-                            <h1 className="text-5xl lg:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
-                                Discover Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-400">True Calling</span>
-                            </h1>
-                            <p className="text-lg text-slate-400 mb-8 max-w-2xl mx-auto lg:mx-0">
-                                Stop guessing. Connect your psychological profile with the perfect job using our advanced AI matching engine.
-                            </p>
+                            Watch Demo
+                        </button>
+                    </motion.div>
 
-                            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                                <Link href="/questionnaire" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-all shadow-lg hover:shadow-blue-500/25 flex items-center justify-center gap-2">
-                                    Start Assessment <ArrowRight size={18} />
-                                </Link>
-                                <Link href="/about" className="w-full sm:w-auto px-8 py-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium rounded-xl transition-all flex items-center justify-center">
-                                    How it works
-                                </Link>
+                    {/* Stats */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
+                        className="grid grid-cols-3 gap-8 max-w-lg mx-auto"
+                    >
+                        {stats.map((stat, i) => (
+                            <div key={i} className="text-center">
+                                <div className="text-3xl md:text-4xl font-bold text-[rgb(var(--text-primary))] mb-1">
+                                    <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                                </div>
+                                <div className="text-sm text-[rgb(var(--text-muted))]">{stat.label}</div>
                             </div>
-                        </motion.div>
-                    </div>
-
-                    <div className="lg:w-1/2 w-full">
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            className="relative"
-                        >
-                            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50 bg-slate-800/50 backdrop-blur-sm aspect-video lg:aspect-square">
-                                <Image
-                                    src="/images/hero.png"
-                                    alt="JobMatch AI Visualization"
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-                        </motion.div>
-                    </div>
-
+                        ))}
+                    </motion.div>
                 </div>
+
+                {/* Feature Pills */}
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    className="mt-24 flex flex-wrap justify-center gap-4"
+                >
+                    {[
+                        { icon: Brain, label: 'Trait Analysis' },
+                        { icon: Target, label: 'Precision Matching' },
+                        { icon: TrendingUp, label: 'Growth Insights' },
+                    ].map((item, i) => (
+                        <div key={i} className="card-glass flex items-center gap-3 px-5 py-3 rounded-full">
+                            <item.icon size={18} className="text-[rgb(var(--accent))]" />
+                            <span className="text-sm font-medium text-[rgb(var(--text-secondary))]">{item.label}</span>
+                        </div>
+                    ))}
+                </motion.div>
             </div>
+
+            {/* Bottom Gradient Fade */}
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[rgb(var(--bg-base))] to-transparent" />
         </section>
     );
 };

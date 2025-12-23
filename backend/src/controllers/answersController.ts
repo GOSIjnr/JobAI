@@ -17,11 +17,20 @@ export const submitAnswers = async (req: Request, res: Response) => {
         // 2. Call AI service
         // 2. Call AI service for traits and career path
         // const traits = await extractTraits(answers);
-        const { recommendations, analysis } = await getCareerRecommendations(answers);
+        const aiResponse = await getCareerRecommendations(answers);
 
-        // 3. Generate matches (Now based on Career Paths)
+        // 3. Return full AI response (includes recommendations, analysis, trait_profile, etc.)
 
-        res.json({ success: true, recommendations, analysis });
+        res.json({
+            success: true,
+            recommendations: aiResponse.recommendations,
+            analysis: aiResponse.analysis,
+            trait_profile: aiResponse.trait_profile,
+            answer_distribution: aiResponse.answer_distribution,
+            total_questions: aiResponse.total_questions,
+            low_engagement: aiResponse.low_engagement,
+            engagement_message: aiResponse.engagement_message
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Failed to process answers' });

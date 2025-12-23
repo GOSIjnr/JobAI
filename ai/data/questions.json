@@ -1,0 +1,221 @@
+{
+    "version": "4.0",
+    "lastUpdated": "2024-12-23",
+    "description": "Optimized questionnaire - 18 high-value questions covering all essential traits",
+    "answerWeights": {
+        "Strongly Agree": 1.0,
+        "Agree": 0.6,
+        "Neutral": 0.0,
+        "Disagree": -0.4,
+        "Strongly Disagree": -0.8
+    },
+    "questions": [
+        {
+            "id": 1,
+            "text": "When I look at a spreadsheet, I naturally start looking for what the numbers are telling me.",
+            "category": "analytical",
+            "traits": {
+                "analytical": 2.0,
+                "pattern-recognition": 1.5,
+                "data-driven": 1.0
+            },
+            "weight": 1.0
+        },
+        {
+            "id": 2,
+            "text": "I'd rather see proof than trust my gut feeling.",
+            "category": "analytical",
+            "traits": {
+                "data-driven": 2.0,
+                "analytical": 1.0,
+                "logical": 1.0
+            },
+            "weight": 1.0
+        },
+        {
+            "id": 3,
+            "text": "When something breaks, I want to understand WHY, not just fix it.",
+            "category": "technical",
+            "traits": {
+                "technical": 2.0,
+                "systems-thinking": 1.5,
+                "curious": 1.0
+            },
+            "weight": 1.0
+        },
+        {
+            "id": 4,
+            "text": "If I do the same task twice, I start thinking of ways to do it faster.",
+            "category": "technical",
+            "traits": {
+                "automation": 2.0,
+                "efficiency": 1.5,
+                "technical": 1.0
+            },
+            "weight": 1.0
+        },
+        {
+            "id": 5,
+            "text": "I enjoy organizing information so it's easy to find later.",
+            "category": "technical",
+            "traits": {
+                "database": 2.0,
+                "technical": 1.0,
+                "optimization": 1.0,
+                "infrastructure": 1.0
+            },
+            "weight": 1.0
+        },
+        {
+            "id": 6,
+            "text": "I notice when colors or fonts clash, even when others don't.",
+            "category": "creative",
+            "traits": {
+                "visual": 2.0,
+                "creative": 2.0,
+                "design": 1.5
+            },
+            "weight": 1.0
+        },
+        {
+            "id": 7,
+            "text": "I often sketch or plan things out before starting a project.",
+            "category": "creative",
+            "traits": {
+                "creative": 2.0,
+                "prototyping": 1.5,
+                "visual": 1.0,
+                "planning": 1.0
+            },
+            "weight": 1.0
+        },
+        {
+            "id": 8,
+            "text": "I love experiences that transport me to another world (games, movies, VR).",
+            "category": "creative",
+            "traits": {
+                "immersive": 2.0,
+                "creative": 1.5,
+                "interactive": 1.5,
+                "3D": 1.0
+            },
+            "weight": 1.0
+        },
+        {
+            "id": 9,
+            "text": "I naturally take charge when a group project has no clear leader.",
+            "category": "leadership",
+            "traits": {
+                "leadership": 2.0,
+                "organizing": 2.0,
+                "management": 1.5
+            },
+            "weight": 1.2
+        },
+        {
+            "id": 10,
+            "text": "I think about whether something will make money or meet a real need.",
+            "category": "business",
+            "traits": {
+                "business": 2.0,
+                "strategic": 1.5,
+                "product-sense": 1.5
+            },
+            "weight": 1.2
+        },
+        {
+            "id": 11,
+            "text": "I'd rather guide a team than work alone on my piece.",
+            "category": "leadership",
+            "traits": {
+                "leadership": 2.5,
+                "team-lead": 2.0,
+                "management": 1.5,
+                "collaboration": 1.0
+            },
+            "weight": 1.5
+        },
+        {
+            "id": 12,
+            "text": "I'm comfortable starting projects without a clear roadmap.",
+            "category": "adaptability",
+            "traits": {
+                "problem-solving": 2.0,
+                "ambiguity-tolerant": 1.5,
+                "innovative": 1.0,
+                "adaptable": 1.5
+            },
+            "weight": 1.0
+        },
+        {
+            "id": 13,
+            "text": "When I see something working, I instinctively think about what could go wrong.",
+            "category": "security",
+            "traits": {
+                "security": 2.0,
+                "risk-aware": 2.0,
+                "analytical": 1.0,
+                "reliability": 1.0
+            },
+            "weight": 1.0
+        },
+        {
+            "id": 14,
+            "text": "I'm fascinated by how people find loopholes or ways around rules.",
+            "category": "security",
+            "traits": {
+                "offensive-security": 2.5,
+                "security": 2.0,
+                "creative": 1.0,
+                "hacker-mindset": 1.5
+            },
+            "weight": 1.0
+        },
+        {
+            "id": 15,
+            "text": "I enjoy explaining complicated things in a way anyone can understand.",
+            "category": "communication",
+            "traits": {
+                "mentoring": 2.0,
+                "communication": 2.0,
+                "teaching": 1.5,
+                "documentation": 1.0
+            },
+            "weight": 1.0
+        },
+        {
+            "id": 16,
+            "text": "I'm fascinated by how people use their phones in everyday life.",
+            "category": "mobile",
+            "traits": {
+                "mobile": 2.0,
+                "user-centric": 1.5,
+                "platform-focused": 1.0
+            },
+            "weight": 1.0
+        },
+        {
+            "id": 17,
+            "text": "I notice small mistakes that others usually overlook.",
+            "category": "testing",
+            "traits": {
+                "testing": 2.0,
+                "detail-oriented": 2.0,
+                "quality": 1.5
+            },
+            "weight": 1.0
+        },
+        {
+            "id": 18,
+            "text": "I love trying new tools or methods, even if the old ones work fine.",
+            "category": "learning",
+            "traits": {
+                "experimental": 2.0,
+                "learning": 1.5,
+                "curious": 1.0,
+                "variety": 1.0
+            },
+            "weight": 1.0
+        }
+    ]
+}

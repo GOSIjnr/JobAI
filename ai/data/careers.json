@@ -1,0 +1,1124 @@
+{
+    "version": "2.0",
+    "lastUpdated": "2024-12-22",
+    "categories": [
+        {
+            "id": "development",
+            "name": "Development",
+            "icon": "💻"
+        },
+        {
+            "id": "data",
+            "name": "Data & AI",
+            "icon": "📊"
+        },
+        {
+            "id": "infrastructure",
+            "name": "Infrastructure",
+            "icon": "🔧"
+        },
+        {
+            "id": "security",
+            "name": "Security",
+            "icon": "🔒"
+        },
+        {
+            "id": "design",
+            "name": "Design & Product",
+            "icon": "🎨"
+        },
+        {
+            "id": "quality",
+            "name": "Quality & Testing",
+            "icon": "✅"
+        },
+        {
+            "id": "architecture",
+            "name": "Architecture",
+            "icon": "🏗️"
+        },
+        {
+            "id": "business",
+            "name": "Business & Management",
+            "icon": "📈"
+        },
+        {
+            "id": "creative",
+            "name": "Creative & Media",
+            "icon": "🎬"
+        },
+        {
+            "id": "healthcare",
+            "name": "Healthcare & Science",
+            "icon": "🏥"
+        },
+        {
+            "id": "finance",
+            "name": "Finance & Analytics",
+            "icon": "💰"
+        },
+        {
+            "id": "emerging",
+            "name": "Emerging Tech",
+            "icon": "🚀"
+        }
+    ],
+    "careers": [
+        {
+            "id": "frontend-dev",
+            "title": "Frontend Developer",
+            "category": "development",
+            "description": "Builds the visible parts of websites and apps that users interact with. Works with HTML, CSS, JavaScript, and modern frameworks like React or Vue.",
+            "traits": {
+                "visual": 3.0,
+                "creative": 2.0,
+                "user-centric": 2.0,
+                "tangible": 1.5,
+                "design": 1.0
+            },
+            "skills": [
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "React",
+                "Vue",
+                "TypeScript"
+            ],
+            "salary_range": "$60,000 - $150,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "backend-dev",
+            "title": "Backend Developer",
+            "category": "development",
+            "description": "Builds server-side logic, databases, and APIs that power applications. Works with languages like Python, Node.js, Java, or Go.",
+            "traits": {
+                "technical": 3.0,
+                "systems-thinking": 2.0,
+                "database": 2.0,
+                "performance": 1.5,
+                "logical": 1.0
+            },
+            "skills": [
+                "Python",
+                "Node.js",
+                "Java",
+                "SQL",
+                "REST APIs",
+                "Microservices"
+            ],
+            "salary_range": "$70,000 - $160,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "fullstack-dev",
+            "title": "Full Stack Developer",
+            "category": "development",
+            "description": "Versatile developer capable of working on both frontend and backend. Understands the entire application stack.",
+            "traits": {
+                "technical": 2.0,
+                "visual": 1.5,
+                "adaptable": 2.0,
+                "learning": 1.5,
+                "variety": 1.0
+            },
+            "skills": [
+                "JavaScript",
+                "Python",
+                "React",
+                "Node.js",
+                "Databases",
+                "DevOps basics"
+            ],
+            "salary_range": "$65,000 - $155,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "mobile-dev",
+            "title": "Mobile App Developer",
+            "category": "development",
+            "description": "Develops applications for iOS and Android devices. Works with Swift, Kotlin, React Native, or Flutter.",
+            "traits": {
+                "mobile": 3.0,
+                "user-centric": 2.0,
+                "platform-focused": 2.0,
+                "native": 1.0
+            },
+            "skills": [
+                "Swift",
+                "Kotlin",
+                "React Native",
+                "Flutter",
+                "Mobile UX"
+            ],
+            "salary_range": "$65,000 - $150,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "game-dev",
+            "title": "Game Developer",
+            "category": "development",
+            "description": "Creates video games for computers, consoles, and mobile devices. Combines programming with creative storytelling.",
+            "traits": {
+                "creative": 2.5,
+                "visual": 2.0,
+                "immersive": 2.5,
+                "3D": 2.0,
+                "interactive": 1.5
+            },
+            "skills": [
+                "Unity",
+                "Unreal Engine",
+                "C++",
+                "C#",
+                "3D Graphics",
+                "Physics"
+            ],
+            "salary_range": "$50,000 - $140,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "data-scientist",
+            "title": "Data Scientist",
+            "category": "data",
+            "description": "Analyzes complex data to extract insights and build predictive models. Uses statistics, machine learning, and visualization.",
+            "traits": {
+                "analytical": 3.0,
+                "mathematical": 2.5,
+                "statistical": 2.0,
+                "pattern-recognition": 2.0,
+                "data-driven": 1.5
+            },
+            "skills": [
+                "Python",
+                "R",
+                "Machine Learning",
+                "Statistics",
+                "SQL",
+                "Visualization"
+            ],
+            "salary_range": "$80,000 - $180,000",
+            "growth_outlook": "Very High"
+        },
+        {
+            "id": "data-engineer",
+            "title": "Data Engineer",
+            "category": "data",
+            "description": "Builds and maintains data pipelines and infrastructure. Ensures data is collected, stored, and accessible.",
+            "traits": {
+                "database": 3.0,
+                "technical": 2.0,
+                "infrastructure": 1.5,
+                "automation": 1.0
+            },
+            "skills": [
+                "Python",
+                "SQL",
+                "Spark",
+                "Airflow",
+                "AWS/GCP",
+                "ETL"
+            ],
+            "salary_range": "$85,000 - $175,000",
+            "growth_outlook": "Very High"
+        },
+        {
+            "id": "ml-engineer",
+            "title": "Machine Learning Engineer",
+            "category": "data",
+            "description": "Deploys and scales machine learning models in production. Bridges data science and software engineering.",
+            "traits": {
+                "mathematical": 2.5,
+                "analytical": 2.0,
+                "technical": 2.0,
+                "automation": 1.5,
+                "experimental": 1.0
+            },
+            "skills": [
+                "Python",
+                "TensorFlow",
+                "PyTorch",
+                "MLOps",
+                "Docker",
+                "Cloud ML"
+            ],
+            "salary_range": "$100,000 - $200,000",
+            "growth_outlook": "Very High"
+        },
+        {
+            "id": "ai-researcher",
+            "title": "AI Researcher",
+            "category": "data",
+            "description": "Advances the field of artificial intelligence through research. Publishes papers and develops new algorithms.",
+            "traits": {
+                "mathematical": 3.0,
+                "analytical": 2.5,
+                "experimental": 2.0,
+                "learning": 2.0,
+                "curious": 1.5
+            },
+            "skills": [
+                "Deep Learning",
+                "Mathematics",
+                "Research",
+                "Python",
+                "Academic Writing"
+            ],
+            "salary_range": "$120,000 - $300,000",
+            "growth_outlook": "Very High"
+        },
+        {
+            "id": "data-analyst",
+            "title": "Data Analyst",
+            "category": "data",
+            "description": "Interprets data to help businesses make decisions. Creates reports, dashboards, and visualizations.",
+            "traits": {
+                "analytical": 2.5,
+                "data-driven": 2.5,
+                "communication": 2.0,
+                "pattern-recognition": 1.5
+            },
+            "skills": [
+                "SQL",
+                "Excel",
+                "Tableau",
+                "Python",
+                "Statistics",
+                "Reporting"
+            ],
+            "salary_range": "$55,000 - $100,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "devops-engineer",
+            "title": "DevOps Engineer",
+            "category": "infrastructure",
+            "description": "Bridges development and operations. Automates deployment, scaling, and infrastructure management.",
+            "traits": {
+                "automation": 3.0,
+                "CI/CD": 2.5,
+                "infrastructure": 2.0,
+                "technical": 1.5,
+                "efficiency": 1.0
+            },
+            "skills": [
+                "Docker",
+                "Kubernetes",
+                "CI/CD",
+                "AWS/Azure",
+                "Linux",
+                "Terraform"
+            ],
+            "salary_range": "$80,000 - $170,000",
+            "growth_outlook": "Very High"
+        },
+        {
+            "id": "cloud-architect",
+            "title": "Cloud Architect",
+            "category": "infrastructure",
+            "description": "Designs and oversees cloud computing strategy. Works with AWS, Azure, or GCP to build scalable solutions.",
+            "traits": {
+                "infrastructure": 3.0,
+                "strategic": 2.0,
+                "systems-thinking": 2.0,
+                "technical": 1.5
+            },
+            "skills": [
+                "AWS",
+                "Azure",
+                "GCP",
+                "Architecture",
+                "Networking",
+                "Security"
+            ],
+            "salary_range": "$120,000 - $200,000",
+            "growth_outlook": "Very High"
+        },
+        {
+            "id": "sre",
+            "title": "Site Reliability Engineer",
+            "category": "infrastructure",
+            "description": "Ensures systems are reliable, scalable, and efficient. Focuses on uptime, incident response, and automation.",
+            "traits": {
+                "reliability": 3.0,
+                "automation": 2.0,
+                "infrastructure": 2.0,
+                "stability": 1.5
+            },
+            "skills": [
+                "Linux",
+                "Monitoring",
+                "Automation",
+                "Incident Response",
+                "SLOs"
+            ],
+            "salary_range": "$100,000 - $180,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "dba",
+            "title": "Database Administrator",
+            "category": "infrastructure",
+            "description": "Manages databases to ensure data is stored securely and efficiently. Handles backups, optimization, and access.",
+            "traits": {
+                "database": 3.0,
+                "reliability": 2.0,
+                "optimization": 1.5,
+                "security": 1.0
+            },
+            "skills": [
+                "SQL",
+                "PostgreSQL",
+                "MongoDB",
+                "Backup/Recovery",
+                "Performance Tuning"
+            ],
+            "salary_range": "$70,000 - $140,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "network-engineer",
+            "title": "Network Engineer",
+            "category": "infrastructure",
+            "description": "Designs, implements, and manages computer networks. Ensures connectivity and security across systems.",
+            "traits": {
+                "infrastructure": 3.0,
+                "networking": 2.5,
+                "security": 1.5,
+                "technical": 1.5
+            },
+            "skills": [
+                "Cisco",
+                "Networking",
+                "Firewalls",
+                "TCP/IP",
+                "VPNs"
+            ],
+            "salary_range": "$65,000 - $130,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "security-analyst",
+            "title": "Cybersecurity Analyst",
+            "category": "security",
+            "description": "Protects systems and networks from cyber threats. Monitors for attacks and responds to incidents.",
+            "traits": {
+                "security": 3.0,
+                "analytical": 2.0,
+                "hacker-mindset": 1.5,
+                "risk-averse": 1.0
+            },
+            "skills": [
+                "SIEM",
+                "Threat Analysis",
+                "Incident Response",
+                "Security Tools"
+            ],
+            "salary_range": "$70,000 - $140,000",
+            "growth_outlook": "Very High"
+        },
+        {
+            "id": "pen-tester",
+            "title": "Penetration Tester",
+            "category": "security",
+            "description": "Ethically hacks systems to find vulnerabilities before malicious actors do. Tests security defenses.",
+            "traits": {
+                "offensive-security": 3.0,
+                "hacker-mindset": 2.5,
+                "security": 2.0,
+                "problem-solving": 1.5
+            },
+            "skills": [
+                "Ethical Hacking",
+                "Kali Linux",
+                "Burp Suite",
+                "Metasploit",
+                "Scripting"
+            ],
+            "salary_range": "$80,000 - $160,000",
+            "growth_outlook": "Very High"
+        },
+        {
+            "id": "security-engineer",
+            "title": "Security Engineer",
+            "category": "security",
+            "description": "Builds secure systems and implements security controls. Develops security tools and policies.",
+            "traits": {
+                "security": 3.0,
+                "technical": 2.0,
+                "compliance": 1.5,
+                "infrastructure": 1.0
+            },
+            "skills": [
+                "Security Architecture",
+                "Encryption",
+                "IAM",
+                "SAST/DAST",
+                "Cloud Security"
+            ],
+            "salary_range": "$90,000 - $170,000",
+            "growth_outlook": "Very High"
+        },
+        {
+            "id": "ux-designer",
+            "title": "UX/UI Designer",
+            "category": "design",
+            "description": "Designs intuitive and aesthetically pleasing user interfaces. Focuses on user research and experience.",
+            "traits": {
+                "visual": 3.0,
+                "creative": 3.0,
+                "user-centric": 2.5,
+                "prototyping": 2.0,
+                "design": 1.5
+            },
+            "skills": [
+                "Figma",
+                "User Research",
+                "Prototyping",
+                "Design Systems",
+                "Usability Testing"
+            ],
+            "salary_range": "$60,000 - $140,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "product-manager",
+            "title": "Product Manager",
+            "category": "design",
+            "description": "Leads product strategy, defines roadmaps, and prioritizes features. Organizes cross-functional teams.",
+            "traits": {
+                "leadership": 3.0,
+                "strategic": 3.0,
+                "business": 2.5,
+                "prioritization": 2.0,
+                "product-sense": 2.0,
+                "organizing": 1.5,
+                "team-lead": 1.5,
+                "communication": 1.0,
+                "management": 1.0
+            },
+            "skills": [
+                "Product Strategy",
+                "Roadmapping",
+                "Analytics",
+                "Agile",
+                "Stakeholder Management"
+            ],
+            "salary_range": "$90,000 - $180,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "tech-writer",
+            "title": "Technical Writer",
+            "category": "design",
+            "description": "Creates documentation, guides, and tutorials. Makes complex technical concepts accessible.",
+            "traits": {
+                "documentation": 3.0,
+                "communication": 2.5,
+                "writing": 2.0,
+                "teaching": 1.5
+            },
+            "skills": [
+                "Technical Writing",
+                "Documentation",
+                "Markdown",
+                "API Docs",
+                "Tutorials"
+            ],
+            "salary_range": "$55,000 - $110,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "graphic-designer",
+            "title": "Graphic Designer",
+            "category": "creative",
+            "description": "Creates visual content for brands, marketing, and digital products. Combines creativity with communication.",
+            "traits": {
+                "visual": 3.0,
+                "creative": 3.0,
+                "design": 2.5,
+                "communication": 1.5
+            },
+            "skills": [
+                "Photoshop",
+                "Illustrator",
+                "Branding",
+                "Typography",
+                "Layout Design"
+            ],
+            "salary_range": "$40,000 - $90,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "qa-engineer",
+            "title": "QA Engineer",
+            "category": "quality",
+            "description": "Tests software to ensure quality and find bugs. Creates test plans and performs manual testing.",
+            "traits": {
+                "testing": 3.0,
+                "detail-oriented": 2.5,
+                "quality": 2.0,
+                "process": 1.0
+            },
+            "skills": [
+                "Test Planning",
+                "Bug Tracking",
+                "Manual Testing",
+                "Test Cases",
+                "Regression"
+            ],
+            "salary_range": "$55,000 - $110,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "test-automation",
+            "title": "Test Automation Engineer",
+            "category": "quality",
+            "description": "Automates testing processes with code. Builds test frameworks and CI/CD integrations.",
+            "traits": {
+                "test-automation": 3.0,
+                "automation": 2.5,
+                "testing": 2.0,
+                "CI/CD": 1.5
+            },
+            "skills": [
+                "Selenium",
+                "Cypress",
+                "Python",
+                "Test Frameworks",
+                "CI/CD Integration"
+            ],
+            "salary_range": "$70,000 - $140,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "solutions-architect",
+            "title": "Solutions Architect",
+            "category": "architecture",
+            "description": "Designs complex technical solutions to meet business needs. Bridges technical and business requirements.",
+            "traits": {
+                "strategic": 3.0,
+                "systems-thinking": 2.5,
+                "technical": 2.0,
+                "communication": 1.5,
+                "business": 1.0
+            },
+            "skills": [
+                "Architecture Design",
+                "Cloud",
+                "Integration",
+                "Requirements Gathering"
+            ],
+            "salary_range": "$120,000 - $200,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "enterprise-architect",
+            "title": "Enterprise Architect",
+            "category": "architecture",
+            "description": "Oversees organization-wide technology strategy. Ensures alignment between IT and business goals.",
+            "traits": {
+                "strategic": 3.0,
+                "leadership": 2.0,
+                "systems-thinking": 2.0,
+                "management": 1.5
+            },
+            "skills": [
+                "Enterprise Architecture",
+                "Strategy",
+                "Governance",
+                "TOGAF"
+            ],
+            "salary_range": "$140,000 - $220,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "blockchain-dev",
+            "title": "Blockchain Developer",
+            "category": "emerging",
+            "description": "Builds decentralized applications and smart contracts. Works with Web3, Ethereum, or Solana.",
+            "traits": {
+                "security": 2.0,
+                "technical": 2.0,
+                "innovative": 2.0,
+                "curious": 1.0
+            },
+            "skills": [
+                "Solidity",
+                "Web3",
+                "Smart Contracts",
+                "Ethereum",
+                "DeFi"
+            ],
+            "salary_range": "$90,000 - $200,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "ar-vr-dev",
+            "title": "AR/VR Developer",
+            "category": "emerging",
+            "description": "Creates immersive augmented and virtual reality experiences. Combines 3D graphics with spatial computing.",
+            "traits": {
+                "immersive": 3.0,
+                "3D": 3.0,
+                "spatial": 2.0,
+                "creative": 2.0,
+                "visual": 1.5
+            },
+            "skills": [
+                "Unity",
+                "Unreal",
+                "3D Modeling",
+                "Spatial Computing",
+                "XR Development"
+            ],
+            "salary_range": "$80,000 - $160,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "business-analyst",
+            "title": "Business Analyst",
+            "category": "business",
+            "description": "Bridges business needs and technical solutions. Gathers requirements and translates them for developers.",
+            "traits": {
+                "analytical": 2.5,
+                "communication": 2.5,
+                "business": 2.0,
+                "documentation": 1.5,
+                "problem-solving": 1.0
+            },
+            "skills": [
+                "Requirements Gathering",
+                "Documentation",
+                "Stakeholder Management",
+                "Process Mapping"
+            ],
+            "salary_range": "$60,000 - $120,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "project-manager",
+            "title": "Project Manager",
+            "category": "business",
+            "description": "Plans, executes, and closes projects. Manages timelines, budgets, and team coordination.",
+            "traits": {
+                "organizing": 3.0,
+                "leadership": 2.0,
+                "communication": 2.0,
+                "management": 2.0,
+                "process": 1.5
+            },
+            "skills": [
+                "Project Planning",
+                "Agile/Scrum",
+                "Risk Management",
+                "Stakeholder Communication"
+            ],
+            "salary_range": "$70,000 - $140,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "scrum-master",
+            "title": "Scrum Master",
+            "category": "business",
+            "description": "Facilitates agile processes and removes blockers for development teams. Coaches on agile practices.",
+            "traits": {
+                "leadership": 2.5,
+                "communication": 2.5,
+                "team-player": 2.0,
+                "process": 1.5,
+                "mentoring": 1.0
+            },
+            "skills": [
+                "Scrum",
+                "Agile",
+                "Facilitation",
+                "Coaching",
+                "Jira"
+            ],
+            "salary_range": "$80,000 - $140,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "marketing-analyst",
+            "title": "Marketing Analyst",
+            "category": "business",
+            "description": "Analyzes marketing data to optimize campaigns and understand customer behavior.",
+            "traits": {
+                "analytical": 2.5,
+                "data-driven": 2.0,
+                "business": 2.0,
+                "communication": 1.5,
+                "creative": 1.0
+            },
+            "skills": [
+                "Google Analytics",
+                "Marketing Metrics",
+                "A/B Testing",
+                "SQL",
+                "Data Visualization"
+            ],
+            "salary_range": "$50,000 - $100,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "digital-marketer",
+            "title": "Digital Marketer",
+            "category": "business",
+            "description": "Creates and manages online marketing campaigns. Drives traffic, leads, and conversions.",
+            "traits": {
+                "creative": 2.5,
+                "communication": 2.0,
+                "analytical": 1.5,
+                "business": 1.5,
+                "adaptable": 1.0
+            },
+            "skills": [
+                "SEO",
+                "SEM",
+                "Social Media",
+                "Content Marketing",
+                "Email Marketing"
+            ],
+            "salary_range": "$45,000 - $100,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "content-creator",
+            "title": "Content Creator",
+            "category": "creative",
+            "description": "Produces engaging content for digital platforms. Creates videos, articles, and social media content.",
+            "traits": {
+                "creative": 3.0,
+                "communication": 2.5,
+                "visual": 2.0,
+                "writing": 1.5
+            },
+            "skills": [
+                "Video Production",
+                "Writing",
+                "Social Media",
+                "Storytelling",
+                "Editing"
+            ],
+            "salary_range": "$35,000 - $100,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "video-editor",
+            "title": "Video Editor",
+            "category": "creative",
+            "description": "Edits and produces video content. Works with raw footage to create polished final products.",
+            "traits": {
+                "visual": 3.0,
+                "creative": 2.5,
+                "detail-oriented": 2.0,
+                "technical": 1.0
+            },
+            "skills": [
+                "Premiere Pro",
+                "After Effects",
+                "Color Grading",
+                "Sound Design",
+                "Motion Graphics"
+            ],
+            "salary_range": "$40,000 - $90,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "financial-analyst",
+            "title": "Financial Analyst",
+            "category": "finance",
+            "description": "Analyzes financial data to guide business decisions. Creates models and forecasts.",
+            "traits": {
+                "analytical": 3.0,
+                "mathematical": 2.5,
+                "data-driven": 2.0,
+                "business": 1.5
+            },
+            "skills": [
+                "Financial Modeling",
+                "Excel",
+                "Valuation",
+                "Forecasting",
+                "Reporting"
+            ],
+            "salary_range": "$60,000 - $130,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "quantitative-analyst",
+            "title": "Quantitative Analyst",
+            "category": "finance",
+            "description": "Uses mathematical models to analyze financial markets. Develops trading strategies and risk models.",
+            "traits": {
+                "mathematical": 3.0,
+                "analytical": 3.0,
+                "statistical": 2.5,
+                "technical": 2.0
+            },
+            "skills": [
+                "Python/R",
+                "Statistics",
+                "Financial Math",
+                "Risk Modeling",
+                "Algorithmic Trading"
+            ],
+            "salary_range": "$100,000 - $250,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "healthcare-data-analyst",
+            "title": "Healthcare Data Analyst",
+            "category": "healthcare",
+            "description": "Analyzes healthcare data to improve patient outcomes and operational efficiency.",
+            "traits": {
+                "analytical": 2.5,
+                "data-driven": 2.5,
+                "compliance": 2.0,
+                "communication": 1.5
+            },
+            "skills": [
+                "SQL",
+                "Healthcare Analytics",
+                "HIPAA",
+                "Data Visualization",
+                "EHR Systems"
+            ],
+            "salary_range": "$60,000 - $110,000",
+            "growth_outlook": "Very High"
+        },
+        {
+            "id": "bioinformatics",
+            "title": "Bioinformatics Scientist",
+            "category": "healthcare",
+            "description": "Applies computational techniques to biological data. Analyzes genomics and molecular data.",
+            "traits": {
+                "analytical": 3.0,
+                "mathematical": 2.5,
+                "experimental": 2.0,
+                "curious": 1.5,
+                "technical": 1.0
+            },
+            "skills": [
+                "Python/R",
+                "Genomics",
+                "Statistics",
+                "Bioinformatics Tools",
+                "Research"
+            ],
+            "salary_range": "$70,000 - $140,000",
+            "growth_outlook": "Very High"
+        },
+        {
+            "id": "technical-support",
+            "title": "Technical Support Engineer",
+            "category": "infrastructure",
+            "description": "Helps users solve technical problems. Diagnoses issues and provides solutions.",
+            "traits": {
+                "problem-solving": 2.5,
+                "communication": 2.5,
+                "technical": 2.0,
+                "teaching": 1.5
+            },
+            "skills": [
+                "Troubleshooting",
+                "Customer Service",
+                "Technical Knowledge",
+                "Documentation"
+            ],
+            "salary_range": "$45,000 - $90,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "it-consultant",
+            "title": "IT Consultant",
+            "category": "business",
+            "description": "Advises organizations on technology strategy and implementation. Solves complex IT challenges.",
+            "traits": {
+                "strategic": 2.5,
+                "communication": 2.5,
+                "technical": 2.0,
+                "business": 2.0,
+                "problem-solving": 1.5
+            },
+            "skills": [
+                "Consulting",
+                "Strategy",
+                "Technical Knowledge",
+                "Stakeholder Management"
+            ],
+            "salary_range": "$80,000 - $180,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "tech-lead",
+            "title": "Technical Lead",
+            "category": "development",
+            "description": "Leads development teams technically. Makes architectural decisions and mentors developers.",
+            "traits": {
+                "technical": 3.0,
+                "leadership": 2.5,
+                "mentoring": 2.0,
+                "systems-thinking": 1.5,
+                "communication": 1.0
+            },
+            "skills": [
+                "Software Architecture",
+                "Code Review",
+                "Mentoring",
+                "Technical Decision Making"
+            ],
+            "salary_range": "$120,000 - $200,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "engineering-manager",
+            "title": "Engineering Manager",
+            "category": "business",
+            "description": "Manages engineering teams and projects. Balances technical leadership with people management.",
+            "traits": {
+                "leadership": 3.0,
+                "management": 2.5,
+                "communication": 2.0,
+                "technical": 1.5,
+                "mentoring": 1.5
+            },
+            "skills": [
+                "People Management",
+                "Technical Leadership",
+                "Hiring",
+                "Performance Reviews"
+            ],
+            "salary_range": "$140,000 - $220,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "cto",
+            "title": "Chief Technology Officer",
+            "category": "business",
+            "description": "Leads technology vision and strategy for an organization. Oversees all technical decisions.",
+            "traits": {
+                "strategic": 3.0,
+                "leadership": 3.0,
+                "business": 2.5,
+                "technical": 2.0,
+                "management": 2.0
+            },
+            "skills": [
+                "Technology Strategy",
+                "Executive Leadership",
+                "Team Building",
+                "Business Acumen"
+            ],
+            "salary_range": "$180,000 - $400,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "robotics-engineer",
+            "title": "Robotics Engineer",
+            "category": "emerging",
+            "description": "Designs and builds robots and automated systems. Combines mechanical, electrical, and software engineering.",
+            "traits": {
+                "technical": 3.0,
+                "innovative": 2.5,
+                "systems-thinking": 2.0,
+                "mathematical": 1.5,
+                "experimental": 1.0
+            },
+            "skills": [
+                "Robotics",
+                "ROS",
+                "C++",
+                "Control Systems",
+                "Computer Vision"
+            ],
+            "salary_range": "$80,000 - $160,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "iot-engineer",
+            "title": "IoT Engineer",
+            "category": "emerging",
+            "description": "Develops Internet of Things devices and systems. Connects physical devices to the internet.",
+            "traits": {
+                "technical": 3.0,
+                "infrastructure": 2.0,
+                "innovative": 1.5,
+                "systems-thinking": 1.5
+            },
+            "skills": [
+                "Embedded Systems",
+                "IoT Protocols",
+                "Cloud Integration",
+                "Hardware",
+                "Python"
+            ],
+            "salary_range": "$75,000 - $140,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "research-scientist",
+            "title": "Research Scientist",
+            "category": "healthcare",
+            "description": "Conducts scientific research to advance knowledge. Designs experiments and publishes findings.",
+            "traits": {
+                "analytical": 3.0,
+                "experimental": 3.0,
+                "curious": 2.5,
+                "mathematical": 2.0,
+                "learning": 1.5
+            },
+            "skills": [
+                "Research Methods",
+                "Data Analysis",
+                "Academic Writing",
+                "Statistical Analysis"
+            ],
+            "salary_range": "$70,000 - $150,000",
+            "growth_outlook": "Medium"
+        },
+        {
+            "id": "customer-success",
+            "title": "Customer Success Manager",
+            "category": "business",
+            "description": "Ensures customers achieve their goals with a product. Builds relationships and drives retention.",
+            "traits": {
+                "communication": 3.0,
+                "business": 2.0,
+                "problem-solving": 2.0,
+                "mentoring": 1.5,
+                "team-player": 1.0
+            },
+            "skills": [
+                "Customer Relations",
+                "Product Knowledge",
+                "Analytics",
+                "Communication"
+            ],
+            "salary_range": "$60,000 - $120,000",
+            "growth_outlook": "High"
+        },
+        {
+            "id": "hr-tech",
+            "title": "HR Technology Specialist",
+            "category": "business",
+            "description": "Manages HR systems and technology. Implements tools for hiring, payroll, and employee management.",
+            "traits": {
+                "technical": 2.0,
+                "organizing": 2.0,
+                "communication": 2.0,
+                "process": 1.5,
+                "business": 1.0
+            },
+            "skills": [
+                "HRIS",
+                "HR Analytics",
+                "System Implementation",
+                "Process Improvement"
+            ],
+            "salary_range": "$60,000 - $110,000",
+            "growth_outlook": "Medium"
+        }
+    ]
+}

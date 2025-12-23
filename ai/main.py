@@ -1,104 +1,239 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import os
-import google.generativeai as genai
 from dotenv import load_dotenv
+from typing import List, Dict, Any, Optional
+from datetime import datetime
 import json
-from typing import List, Dict, Any
+from pathlib import Path
 
 load_dotenv()
 
-app = FastAPI(title="JobMatch AI Service")
+app = FastAPI(
+    title="JobMatch AI Service",
+    description="Career recommendation engine with 50+ careers across 12 industries",
+    version="2.0.0"
+)
 
-# Configure Gemini
-GENAI_API_KEY = os.getenv("GEMINI_API_KEY")
-if not GENAI_API_KEY:
-    print("WARNING: GEMINI_API_KEY not found in environment variables.")
-else:
-    genai.configure(api_key=GENAI_API_KEY)
+# Import local matching engine
+from matching_engine import get_engine
+from trait_scorer import get_careers, get_categories, get_questions, reload_data
+
+# Feedback storage
+FEEDBACK_FILE = Path(__file__).parent / "data" / "feedback.json"
+
 
 class TraitRequest(BaseModel):
-    answers: List[Any]  # Accepting list of objects {question, answer}
+    answers: List[Any]  # List of {question, answer}
 
-class TraitResponse(BaseModel):
-    recommendations: List[Dict]
-    analysis: str
+
+class FeedbackRequest(BaseModel):
+    session_id: Optional[str] = None
+    recommended_career: str
+    was_accurate: bool
+    user_chosen_career: Optional[str] = None
+    comments: Optional[str] = None
+
+
+class CompareRequest(BaseModel):
+    career_ids: List[str]  # List of career IDs to compare
+
 
 @app.get("/")
 def read_root():
-    return {"message": "JobMatch AI Service is running (Gemini Powered)"}
+    careers = get_careers()
+    categories = get_categories()
+    return {
+        "message": "JobMatch AI Service v2.0",
+        "total_careers": len(careers),
+        "total_categories": len(categories),
+        "features": ["confidence_indicators", "skills_gap", "alternative_paths", "trait_visualization"]
+    }
+
+
+@app.get("/health")
+def health_check():
+    try:
+        careers = get_careers()
+        return {
+            "status": "healthy",
+            "engine": "local",
+            "careers_loaded": len(careers)
+        }
+    except Exception as e:
+        return {"status": "unhealthy", "error": str(e)}
+
+
+@app.get("/careers")
+def list_careers():
+    """Get all available careers grouped by category."""
+    careers = get_careers()
+    categories = get_categories()
+    
+    # Group by category
+    grouped = {}
+    for career in careers:
+        cat_id = career.get("category", "other")
+        cat_info = categories.get(cat_id, {"name": "Other", "icon": "📌"})
+        
+        if cat_id not in grouped:
+            grouped[cat_id] = {
+                "category_id": cat_id,
+                "category_name": cat_info.get("name", "Other"),
+                "category_icon": cat_info.get("icon", "📌"),
+                "careers": []
+            }
+        
+        grouped[cat_id]["careers"].append({
+            "id": career["id"],
+            "title": career["title"],
+            "description": career.get("description", ""),
+            "salary_range": career.get("salary_range", ""),
+            "growth_outlook": career.get("growth_outlook", "")
+        })
+    
+    return {"categories": list(grouped.values())}
+
+
+@app.get("/careers/{career_id}")
+def get_career_details(career_id: str):
+    """Get detailed info about a specific career."""
+    careers = get_careers()
+    categories = get_categories()
+    
+    career = next((c for c in careers if c["id"] == career_id), None)
+    if not career:
+        raise HTTPException(status_code=404, detail=f"Career '{career_id}' not found")
+    
+    cat_info = categories.get(career.get("category", ""), {})
+    
+    return {
+        **career,
+        "category_name": cat_info.get("name", ""),
+        "category_icon": cat_info.get("icon", "")
+    }
+
+
+@app.get("/questions")
+def list_questions():
+    """Get all assessment questions."""
+    questions = get_questions()
+    return {
+        "total": len(questions),
+        "questions": questions
+    }
+
 
 @app.post("/recommend-careers")
 async def recommend_careers(request: TraitRequest):
+    """
+    Get career recommendations based on user answers.
+    Returns top 3 matches with confidence, skills gap, and alternatives.
+    """
     try:
-        model = genai.GenerativeModel('gemini-2.0-flash')
-
-        # Static Knowledge Base of Tech Careers
-        CAREER_KNOWLEDGE_BASE = [
-            {"title": "Frontend Developer", "traits": ["Creative", "Visual", "Tangible Results", "Detail-Oriented", "User-Centric"], "description": "Builds the visible parts of websites and apps users interact with."},
-            {"title": "Backend Developer", "traits": ["Logical", "Technical", "System-Oriented", "Problem Solver", "Efficient"], "description": "Builds the server-side logic, databases, and APIs that power applications."},
-            {"title": "Full Stack Developer", "traits": ["Adaptable", "Technical", "Creative", "Holistic", "Learner"], "description": "Versatile developer capable of working on both potential frontend and backend components."},
-            {"title": "DevOps Engineer", "traits": ["Technical", "Automation", "Reliability", "Security", "System-Oriented"], "description": "Focuses on deploying, scaling, and maintaining infrastructure and CI/CD pipelines."},
-            {"title": "Data Scientist", "traits": ["Analytical", "Mathematical", "Pattern-Finder", "Business-Minded", "Investigative"], "description": "Analyzes complex data to help organizations make better decisions."},
-            {"title": "UX/UI Designer", "traits": ["Creative", "Empathic", "Visual", "User-Centric", "Communicator"], "description": "Designs intuitive and aesthetically pleasing user interfaces and experiences."},
-            {"title": "Cybersecurity Analyst", "traits": ["Security-Minded", "Risk-Averse", "Detail-Oriented", "Investigative", "Protective"], "description": "Protects systems and networks from threats and unauthorized access."},
-            {"title": "Product Manager", "traits": ["Leadership", "Business-Minded", "Communicator", "Strategic", "Empathic"], "description": "Guidies the success of a product and leads the cross-functional team that is responsible for improving it."},
-            {"title": "QA Engineer", "traits": ["Detail-Oriented", "Critical Thinker", "Reliability", "Process-Oriented", "Breaker"], "description": "Tests software to ensure it meets quality standards and is free of bugs."},
-            {"title": "Cloud Architect", "traits": ["Strategic", "Technical", "System-Oriented", "Scalability", "Planner"], "description": "Designs and manages the cloud computing strategy for an organization."},
-            {"title": "Mobile App Developer", "traits": ["Creative", "Technical", "User-Centric", "Tangible Results", "Mobile-First"], "description": "Develops applications specifically for mobile devices (iOS/Android)."},
-            {"title": "Database Administrator", "traits": ["Organized", "Reliability", "Security", "Detail-Oriented", "Technical"], "description": "Ensures data is stored, organized, and accessible securely and efficiently."},
-            {"title": "Solutions Architect", "traits": ["Strategic", "Communicator", "Technical", "Business-Minded", "Problem Solver"], "description": "Designs complex technical solutions to meet business needs."},
-            {"title": "Blockchain Developer", "traits": [" innovative", "Cryptographic", "Technical", "Security-Minded", "Decentralized"], "description": "Builds decentralized applications and smart contracts on blockchain platforms."},
-            {"title": "Game Developer", "traits": ["Creative", "Technical", "Visual", "Storyteller", "Logic"], "description": "Creates video games for computers, consoles, and mobile devices."}
-        ]
+        engine = get_engine()
+        result = engine.recommend(request.answers, top_k=3)
         
-        prompt = f"""
-        You are an expert Career Counselor AI with a specific methodology.
-        
-        TASK:
-        1. Analyze the User's Persona based on their Q&A.
-        2. COMPARE the User's Persona against the provided 'CAREER_KNOWLEDGE_BASE'.
-        3. For EACH career in the knowledge base, calculate a 'Compatibility Score' (0-100%) based on trait overlap.
-        4. SELECT the Top 3 distinct careers with the highest scores.
-        
-        INPUT DATA:
-        User Q&A:
-        {json.dumps(request.answers, indent=2)}
-        
-        CAREER_KNOWLEDGE_BASE:
-        {json.dumps(CAREER_KNOWLEDGE_BASE, indent=2)}
-        
-        OUTPUT FORMAT:
-        Return a PURE JSON object (no markdown) with this EXACT structure:
-        {{
-            "recommendations": [
-                {{
-                    "title": "Exact Title from Knowledge Base",
-                    "description": "Description from Knowledge Base",
-                    "match_score": 95,
-                    "reasoning": "Detailed explanation of why the user's answers (cite specific traits/answers) match this role's required traits."
-                }}
-            ],
-            "analysis": "A professional summary of the user's identified strengths and work style."
-        }}
-        """
-
-        response = model.generate_content(prompt)
-        text_response = response.text.strip()
-        
-        # Clean up if model adds markdown code blocks
-        if text_response.startswith("```json"):
-            text_response = text_response[7:]
-        if text_response.endswith("```"):
-            text_response = text_response[:-3]
-            
-        return json.loads(text_response)
+        print(f"[AI Service] Generated {len(result['recommendations'])} recommendations")
+        return result
 
     except Exception as e:
-        print(f"Error calling Gemini: {e}")
-        # Fallback to avoid breaking the UI if API fails
-        raise HTTPException(status_code=500, detail=f"AI generation failed: {str(e)}")
+        print(f"[AI Service] Error: {e}")
+        raise HTTPException(status_code=500, detail=f"Recommendation failed: {str(e)}")
+
+
+@app.post("/compare-careers")
+async def compare_careers(request: CompareRequest):
+    """Compare multiple careers side by side."""
+    careers = get_careers()
+    categories = get_categories()
+    
+    results = []
+    for career_id in request.career_ids[:5]:  # Max 5 comparisons
+        career = next((c for c in careers if c["id"] == career_id), None)
+        if career:
+            cat_info = categories.get(career.get("category", ""), {})
+            results.append({
+                "id": career["id"],
+                "title": career["title"],
+                "category": cat_info.get("name", ""),
+                "description": career.get("description", ""),
+                "traits_required": list(career.get("traits", {}).keys()),
+                "skills": career.get("skills", []),
+                "salary_range": career.get("salary_range", ""),
+                "growth_outlook": career.get("growth_outlook", "")
+            })
+    
+    return {"careers": results}
+
+
+@app.post("/feedback")
+async def submit_feedback(request: FeedbackRequest):
+    """Submit feedback on recommendation accuracy."""
+    try:
+        # Load existing feedback
+        feedback_list = []
+        if FEEDBACK_FILE.exists():
+            with open(FEEDBACK_FILE, "r") as f:
+                feedback_list = json.load(f)
+        
+        # Add new feedback
+        feedback_list.append({
+            "timestamp": datetime.now().isoformat(),
+            "session_id": request.session_id,
+            "recommended_career": request.recommended_career,
+            "was_accurate": request.was_accurate,
+            "user_chosen_career": request.user_chosen_career,
+            "comments": request.comments
+        })
+        
+        # Save
+        with open(FEEDBACK_FILE, "w") as f:
+            json.dump(feedback_list, f, indent=2)
+        
+        return {"status": "success", "message": "Feedback recorded"}
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to save feedback: {str(e)}")
+
+
+@app.get("/feedback/stats")
+def get_feedback_stats():
+    """Get feedback statistics."""
+    if not FEEDBACK_FILE.exists():
+        return {"total": 0, "accuracy_rate": None}
+    
+    with open(FEEDBACK_FILE, "r") as f:
+        feedback_list = json.load(f)
+    
+    total = len(feedback_list)
+    accurate = sum(1 for f in feedback_list if f.get("was_accurate"))
+    
+    return {
+        "total": total,
+        "accurate": accurate,
+        "accuracy_rate": round(accurate / total * 100, 1) if total > 0 else None
+    }
+
+
+@app.post("/admin/reload")
+async def reload_data_endpoint():
+    """Reload careers and questions from JSON files."""
+    try:
+        reload_data()
+        careers = get_careers()
+        categories = get_categories()
+        return {
+            "status": "success",
+            "careers_loaded": len(careers),
+            "categories_loaded": len(categories)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Reload failed: {str(e)}")
+
 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+
