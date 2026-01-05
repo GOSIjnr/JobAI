@@ -326,3 +326,22 @@ The services in our architecture are intended to return structured responses tha
 In the early stages of development, however, we plan to keep this process flexible. The Gateway will essentially act as a pass-through or “dummy” layer, allowing each subservice to return whatever format it chooses. This approach gives teams the freedom to develop and iterate on their services independently, without being constrained by strict response contracts from the start.
 
 By designing with the Gateway in mind, we establish a single point of integration for clients. This strategy balances short-term flexibility with long-term maintainability: it enables rapid development while leaving room for standardization in the future. As the system evolves, we can gradually introduce stricter response formats and transformations at the Gateway, ensuring that the client always receives clean, consistent, and predictable responses.
+
+## 14. More Wild Thoughts
+
+- Idea: Make the API Gateway a **routing-only service** with no authentication.
+- Authentication is handled by a **separate Auth microservice**, alongside other microservices.
+
+**Pros:**
+- Separation of concerns → simpler gateway and services.
+- Scalable independently (gateway vs auth load).
+- Flexible auth strategies (JWT, OAuth, SSO) without touching the gateway.
+
+**Flow:**
+
+```
+Client --> API Gateway (routing) --> Auth Service --> Microservices
+```
+
+- Microservices can validate tokens themselves or trust the Auth Service.
+- Centralizes auth logic, improves reusability and security isolation.
