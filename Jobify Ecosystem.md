@@ -345,3 +345,27 @@ Client --> API Gateway (routing) --> Auth Service --> Microservices
 
 - Microservices can validate tokens themselves or trust the Auth Service.
 - Centralizes auth logic, improves reusability and security isolation.
+
+Here’s the **shortened README version with a concrete example added**, still concise enough for section 15:
+
+---
+
+## 15. API Routes and Versioning
+
+API routes are intentionally **not versioned** (e.g. `/api/jobs` instead of `/api/v1/jobs`).
+
+Versioning is mainly required for **public or third-party APIs** where clients cannot be upgraded in sync. In our system, we **control all internal services and deployments**, so APIs evolve together. Adding route versions for internal APIs would introduce unnecessary complexity and maintenance overhead.
+
+We rely instead on:
+
+* Backward-compatible changes
+* Coordinated deployments
+* Feature flags and contract validation
+
+**Exception (when versioning is allowed):**
+If a route is **publicly exposed** or intended for **external consumers**, versioning may be introduced.
+
+**Example:**
+If we expose a public endpoint that allows third parties to fetch a user’s Jobify profile (e.g. to display it on a GitHub README via a third-party service or widget), that route would be versioned to ensure long-term stability for external integrations.
+
+In short: **no versioning for internal APIs we fully control; versioning only for public or third-party-facing routes.**
