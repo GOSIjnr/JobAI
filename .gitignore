@@ -1,6 +1,8 @@
 # Python virtual environment
 /ai/env
 __pycache__/
+venv/
+.venv/
 *.pyc
 
 # Dependencies
