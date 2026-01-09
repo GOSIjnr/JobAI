@@ -42,12 +42,13 @@ const categoryConfig: Record<string, { icon: React.ElementType; label: string }>
     'empathy': { icon: Users, label: 'Empathy' },
 };
 
+// Mobile-first answer options with better colors
 const answerOptions = [
-    { value: 'Strongly Disagree', key: '1', shade: 'from-red-500/20 to-red-500/5 border-red-500/30 hover:border-red-500/50' },
-    { value: 'Disagree', key: '2', shade: 'from-orange-500/20 to-orange-500/5 border-orange-500/30 hover:border-orange-500/50' },
-    { value: 'Neutral', key: '3', shade: 'from-gray-500/20 to-gray-500/5 border-gray-500/30 hover:border-gray-500/50' },
-    { value: 'Agree', key: '4', shade: 'from-emerald-500/20 to-emerald-500/5 border-emerald-500/30 hover:border-emerald-500/50' },
-    { value: 'Strongly Agree', key: '5', shade: 'from-green-500/20 to-green-500/5 border-green-500/30 hover:border-green-500/50' },
+    { value: 'Strongly Disagree', key: '1', shortLabel: 'Strongly Disagree', color: 'from-red-500/20 to-red-500/5 border-red-500/30', activeColor: 'bg-red-500/20 border-red-500' },
+    { value: 'Disagree', key: '2', shortLabel: 'Disagree', color: 'from-orange-500/20 to-orange-500/5 border-orange-500/30', activeColor: 'bg-orange-500/20 border-orange-500' },
+    { value: 'Neutral', key: '3', shortLabel: 'Neutral', color: 'from-gray-500/20 to-gray-500/5 border-gray-500/30', activeColor: 'bg-gray-500/20 border-gray-500' },
+    { value: 'Agree', key: '4', shortLabel: 'Agree', color: 'from-emerald-500/20 to-emerald-500/5 border-emerald-500/30', activeColor: 'bg-emerald-500/20 border-emerald-500' },
+    { value: 'Strongly Agree', key: '5', shortLabel: 'Strongly Agree', color: 'from-green-500/20 to-green-500/5 border-green-500/30', activeColor: 'bg-green-500/20 border-green-500' },
 ];
 
 export default function QuestionnairePage() {
@@ -58,7 +59,16 @@ export default function QuestionnairePage() {
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [isMobile, setIsMobile] = useState(false);
     const router = useRouter();
+
+    useEffect(() => {
+        // Check if mobile
+        const checkMobile = () => setIsMobile(window.innerWidth < 640);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     useEffect(() => {
         document.title = 'Career Assessment | JobMatch';
@@ -89,14 +99,16 @@ export default function QuestionnairePage() {
         setAnswers(newAnswers);
 
         if (currentIdx < questions.length - 1) {
-            setTimeout(() => setCurrentIdx(currentIdx + 1), 100);
+            setTimeout(() => setCurrentIdx(currentIdx + 1), 150);
         } else {
             setIsCompleted(true);
         }
     }, [answers, currentIdx, questions]);
 
-    // Keyboard shortcuts
+    // Keyboard shortcuts (desktop only)
     useEffect(() => {
+        if (isMobile) return;
+
         const handleKeyDown = (e: KeyboardEvent) => {
             if (isCompleted || isLoading) return;
             const key = e.key;
@@ -108,7 +120,7 @@ export default function QuestionnairePage() {
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [currentIdx, isCompleted, isLoading, handleAnswer]);
+    }, [currentIdx, isCompleted, isLoading, handleAnswer, isMobile]);
 
     const submitForAnalysis = async () => {
         setIsSubmitting(true);
@@ -135,9 +147,9 @@ export default function QuestionnairePage() {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-[rgb(var(--bg-base))]">
+            <div className="min-h-screen min-h-[100dvh] flex items-center justify-center bg-[rgb(var(--bg-base))]">
                 <div className="text-center">
-                    <Loader2 className="w-8 h-8 text-[rgb(var(--accent))] animate-spin mx-auto mb-4" />
+                    <Loader2 className="w-10 h-10 text-[rgb(var(--accent))] animate-spin mx-auto mb-4" />
                     <p className="text-[rgb(var(--text-muted))]">Loading assessment...</p>
                 </div>
             </div>
@@ -151,22 +163,22 @@ export default function QuestionnairePage() {
     const CategoryIcon = cat.icon;
 
     return (
-        <div className="min-h-screen flex flex-col bg-[rgb(var(--bg-base))]">
+        <div className="min-h-screen min-h-[100dvh] flex flex-col bg-[rgb(var(--bg-base))]">
             <Header />
 
-            <main className="flex-grow pt-20 pb-12 px-6 relative">
+            <main className="flex-grow pt-20 pb-6 sm:pb-12 px-4 sm:px-6 relative">
                 <div className="absolute inset-0 bg-mesh opacity-50" />
 
                 <div className="max-w-2xl mx-auto relative">
-                    {/* Progress */}
-                    <div className="mb-8">
-                        <div className="flex justify-between items-center mb-4">
+                    {/* Progress - Always visible at top */}
+                    <div className="mb-6 sm:mb-8">
+                        <div className="flex justify-between items-center mb-3 sm:mb-4">
                             <div className="flex items-center gap-2 badge badge-accent">
                                 <CategoryIcon size={14} />
                                 <span>{cat.label}</span>
                             </div>
-                            <span className="text-sm text-[rgb(var(--text-muted))]">
-                                {currentIdx + 1} / {questions.length}
+                            <span className="text-sm font-medium text-[rgb(var(--text-primary))]">
+                                {currentIdx + 1} <span className="text-[rgb(var(--text-muted))]">/ {questions.length}</span>
                             </span>
                         </div>
                         <div className="progress">
@@ -186,40 +198,77 @@ export default function QuestionnairePage() {
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -20 }}
                                 transition={{ duration: 0.2 }}
-                                className="card p-8 md:p-10"
+                                className="card p-5 sm:p-8 md:p-10"
                             >
-                                <h2 className="heading-2 mb-8 leading-snug">{q.text}</h2>
+                                {/* Question */}
+                                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[rgb(var(--text-primary))] mb-6 sm:mb-8 leading-relaxed">
+                                    {q.text}
+                                </h2>
 
+                                {/* Answer Options - Large touch targets on mobile */}
                                 <div className="space-y-3">
                                     {answerOptions.map((opt) => (
                                         <button
                                             key={opt.value}
                                             onClick={() => handleAnswer(opt.value)}
-                                            className={`w-full py-4 px-5 rounded-xl border text-left flex items-center justify-between transition-all group bg-gradient-to-r ${opt.shade} ${currentAnswer === opt.value ? 'ring-2 ring-[rgb(var(--accent))]' : ''
+                                            className={`w-full py-4 px-4 sm:px-5 rounded-xl border text-left flex items-center justify-between transition-all group touch-feedback bg-gradient-to-r ${opt.color} ${currentAnswer === opt.value
+                                                ? 'ring-2 ring-[rgb(var(--accent))] border-[rgb(var(--accent))]'
+                                                : ''
                                                 }`}
                                         >
                                             <div className="flex items-center gap-3">
-                                                <span className="w-6 h-6 rounded text-xs font-medium bg-[rgb(var(--glass-bg))] border border-[rgb(var(--glass-border))] flex items-center justify-center text-[rgb(var(--text-muted))]">
+                                                {/* Key indicator - hidden on mobile */}
+                                                <span className="hidden sm:flex w-7 h-7 rounded-lg text-xs font-semibold bg-[rgb(var(--bg-elevated))] border border-[rgb(var(--border-default))] items-center justify-center text-[rgb(var(--text-muted))]">
                                                     {opt.key}
                                                 </span>
-                                                <span className="font-medium text-[rgb(var(--text-primary))]">{opt.value}</span>
+                                                <span className="font-medium text-base sm:text-sm text-[rgb(var(--text-primary))]">
+                                                    {opt.value}
+                                                </span>
                                             </div>
-                                            {currentAnswer === opt.value && <Check size={18} className="text-[rgb(var(--accent))]" />}
+                                            {currentAnswer === opt.value && (
+                                                <motion.div
+                                                    initial={{ scale: 0 }}
+                                                    animate={{ scale: 1 }}
+                                                    className="w-6 h-6 rounded-full bg-[rgb(var(--accent))] flex items-center justify-center"
+                                                >
+                                                    <Check size={14} className="text-white" />
+                                                </motion.div>
+                                            )}
                                         </button>
                                     ))}
                                 </div>
 
-                                <div className="flex items-center justify-between mt-8 pt-6 border-t border-[rgb(var(--border-subtle))]">
+                                {/* Navigation - Simplified on mobile */}
+                                <div className="flex items-center justify-between mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[rgb(var(--border-subtle))]">
                                     <button
                                         onClick={() => currentIdx > 0 && setCurrentIdx(currentIdx - 1)}
                                         disabled={currentIdx === 0}
                                         className="btn btn-ghost disabled:opacity-30"
                                     >
-                                        <ArrowLeft size={16} /> Back
+                                        <ArrowLeft size={18} />
+                                        <span className="hidden sm:inline">Back</span>
                                     </button>
-                                    <div className="flex items-center gap-2 text-xs text-[rgb(var(--text-muted))]">
+
+                                    {/* Keyboard hint - Desktop only */}
+                                    <div className="hidden sm:flex items-center gap-2 text-xs text-[rgb(var(--text-muted))]">
                                         <Keyboard size={14} />
                                         Press 1-5 to answer
+                                    </div>
+
+                                    {/* Mobile: Question indicator */}
+                                    <div className="flex sm:hidden items-center gap-1">
+                                        {[...Array(Math.min(5, questions.length))].map((_, i) => {
+                                            const dotIdx = Math.floor(currentIdx / (questions.length / 5));
+                                            return (
+                                                <div
+                                                    key={i}
+                                                    className={`w-2 h-2 rounded-full transition-colors ${i === dotIdx
+                                                            ? 'bg-[rgb(var(--accent))]'
+                                                            : 'bg-[rgb(var(--border-default))]'
+                                                        }`}
+                                                />
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             </motion.div>
@@ -228,12 +277,13 @@ export default function QuestionnairePage() {
                                 key="complete"
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                className="card p-10 text-center"
+                                className="card p-6 sm:p-10 text-center"
                             >
-                                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[rgb(var(--accent))] to-teal-400 flex items-center justify-center mx-auto mb-6 animate-pulse-glow">
-                                    <Check size={32} className="text-white" />
+                                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-[rgb(var(--accent))] to-teal-400 flex items-center justify-center mx-auto mb-6 animate-pulse-glow">
+                                    <Check size={32} className="text-white sm:hidden" />
+                                    <Check size={40} className="text-white hidden sm:block" />
                                 </div>
-                                <h2 className="heading-2 mb-3">Assessment Complete</h2>
+                                <h2 className="heading-2 mb-3">Assessment Complete! 🎉</h2>
                                 <p className="text-[rgb(var(--text-muted))] mb-8 max-w-md mx-auto">
                                     All {questions.length} questions answered. Ready to discover your career matches?
                                 </p>
@@ -245,12 +295,12 @@ export default function QuestionnairePage() {
                                 <button
                                     onClick={submitForAnalysis}
                                     disabled={isSubmitting}
-                                    className="btn btn-primary btn-lg"
+                                    className="btn btn-primary btn-lg w-full sm:w-auto"
                                 >
                                     {isSubmitting ? (
                                         <><Loader2 className="w-5 h-5 animate-spin" /> Analyzing...</>
                                     ) : (
-                                        <>View Results <ArrowRight size={18} /></>
+                                        <>View My Matches <ArrowRight size={18} /></>
                                     )}
                                 </button>
                             </motion.div>
@@ -259,7 +309,10 @@ export default function QuestionnairePage() {
                 </div>
             </main>
 
-            <Footer />
+            {/* Hide footer on mobile during questionnaire for focus */}
+            <div className="hidden sm:block">
+                <Footer />
+            </div>
         </div>
     );
 }
